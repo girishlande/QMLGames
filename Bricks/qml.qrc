@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/fullbrick.png</file>
+        <file>images/halfbrick.png</file>
+        <file>images/ball.png</file>
+        <file>Brick.qml</file>
+        <file>images/gameover.jpg</file>
+        <file>images/gameover1.jpg</file>
+    </qresource>
+</RCC>
