@@ -15,6 +15,8 @@ Window {
     property int carHeight: 75
     property bool gamestarted: false
     property variant carLanes: [1,2,3]
+    property int activeLevel: 0
+    property bool gamePaused: false
 
     function randomIndex(carIndex) {
         var found = false;
@@ -41,63 +43,108 @@ Window {
     }
 
     function startGame() {
-        if (!gamestarted) {
+        if (gamePaused) {
+            road1Animation.restart();
+            car1Animation.restart();
+            car2Animation.restart();
+            car3Animation.restart();
+        } else if (!gamestarted) {
             road1Animation.start();
             car1Animation.start();
             car2Animation.start();
             car3Animation.start();
         }
         gamestarted = true
+        collisionTimer.running = true;
+        winnerTimer.running = true;
     }
 
+    function resetGame() {
+        road1Animation.stop();
+        car1Animation.stop();
+        car2Animation.stop();
+        car3Animation.stop();
+
+        road1Animation.pause();
+        car1Animation.pause();
+        car2Animation.pause();
+        car3Animation.pause();
+        gameover.visible = false;
+        gamestarted = false;
+        collisionTimer.running = false;
+        gamePaused = true;
+    }
+
+    function pauseGame() {
+        road1Animation.pause();
+        car1Animation.pause();
+        car2Animation.pause();
+        car3Animation.pause();
+    }
+
+    // Level bar
     Rectangle {
+        id:levelBar
         width: 200
-        height: 600
+        height: 350
         radius: 20
         anchors.right: background.right
         anchors.top: background.top
         color: "blue"
         z: 1
-        Text {
-            id: startLabel
-            text: qsTr("LEVEL")
-            font.pixelSize: 40
-            anchors.centerIn: parent
-        }
         Column {
+            id: lebelButtons
             anchors.centerIn: parent
             spacing: 10
             Repeater {
                 model: 5
-                Rectangle {
-                    width: 150
-                    height: 100
-                    radius: 20
-                    color: "green"
-                    Text {
-                        id: levelLabel
-                        text: qsTr("LEVEL-"+(index+1))
-                        font.pixelSize: 30
-                        anchors.centerIn: parent
-                    }
-                    MouseArea{
-                        enabled: !gamestarted
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {
-                            parent.color="orange"
-                        }
-                        onExited: {
-                            parent.color="green"
-                        }
-                        onClicked: {
-                            parent.color="orange"
-                            vehicleSppedDuration = 1000 - index*200
-                            root.startGame()
-                        }
+                MyButtom {
+                    active: index == activeLevel
+                    label: qsTr("LEVEL-"+(index+1))
+                    onClicked: {
+                        activeLevel = index;
+                        vehicleSppedDuration = 1000 - index*200
+
                     }
                 }
             }
+        }
+    }
+
+    Rectangle {
+        id:playButtons
+        anchors.top: levelBar.bottom
+        anchors.topMargin: 20
+        anchors.left: levelBar.left
+        height: 150
+        width: levelBar.width
+        radius: levelBar.radius
+        color: "yellow"
+        z:1
+
+        Column {
+            spacing: 10
+            anchors.centerIn: parent
+            MyButtom {
+                id: startButton
+                activecolor: "red"
+                inactivecolor: "blue"
+                label: "Start"
+                enabled: !gameover.visible
+                onClicked: {
+                    root.startGame();
+                }
+            }
+            MyButtom {
+                id: resetButton
+                activecolor: "red"
+                inactivecolor: "blue"
+                label: "Reset"
+                onClicked: {
+                    root.resetGame();
+                }
+            }
+
         }
 
     }
@@ -315,7 +362,34 @@ Window {
                     car3Animation.pause();
                 }
                 gameover.visible = true;
+                winnerTimer.running = false;
+
             }
+        }
+    }
+
+    Rectangle {
+        id: winnerDisplay
+        width: 400
+        height: 150
+        radius: 10
+        color: "gold"
+        visible: false
+        Text {
+            text: qsTr("Congratulations!!!You Won in this level !!")
+            font.pixelSize: 40
+            anchors.centerIn: parent
+            anchors.fill: parent
+            wrapMode: Text.WordWrap
+        }
+    }
+    Timer {
+        id:winnerTimer
+        interval: 5000; repeat: true; running: false
+
+        onTriggered: {
+            winnerDisplay.visible = true;
+            root.pauseGame();
         }
     }
 

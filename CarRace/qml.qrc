@@ -7,5 +7,6 @@
         <file>images/browncar.png</file>
         <file>images/orangeCar.png</file>
         <file>images/gameover.jpeg</file>
+        <file>MyButtom.qml</file>
     </qresource>
 </RCC>
