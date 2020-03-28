@@ -2,13 +2,19 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.4
 
-Window {
+ApplicationWindow {
     id:root
     visible: true
     width: Screen.width
     height: Screen.height
-    title: qsTr("Hello World")
+    title: qsTr("Snake and Ladder")
 
+    menuBar: MenuBarr {
+        id: menubar
+        onEditPlayers: {
+            playerDialog.open();
+        }
+    }
 
     Board {
         id: board
@@ -42,7 +48,10 @@ Window {
         onOutcome: {
             players.movePosition(value);
         }
-
     }
 
+   PlayersDialog {
+       id: playerDialog
+       model: playerModel
+   }
 }

@@ -25,5 +25,7 @@
         <file>Players.qml</file>
         <file>PlayerModel.qml</file>
         <file>ScoreBoard.qml</file>
+        <file>MenuBarr.qml</file>
+        <file>PlayersDialog.qml</file>
     </qresource>
 </RCC>
