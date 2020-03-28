@@ -30,40 +30,52 @@ Dialog {
         width: parent.width/2
         model: dialog.model
         delegate: Row {
-                TextField {
-                    text: model.name
-                    onTextChanged: {
-                        model.name = text;
+            Button {
+                width: height
+                Image {
+                    id: name
+                    source: "qrc:/images/icons/delete.jpg"
+                    width: parent.height
+                    height: parent.height
+                }
+                onClicked: {
+                    dialog.model.remove(index);
+                }
+            }
+            TextField {
+                text: model.name
+                onTextChanged: {
+                    model.name = text;
+                }
+            }
+            Rectangle {
+                id: pickerColor
+                width: 40
+                height: 40
+                radius: 20
+                color: model.mcolor
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        colorDialog.playerIndex=index;
+                        colorDialog.open();
                     }
                 }
-                Rectangle {
-                    id: pickerColor
-                    width: 40
-                    height: 40
-                    radius: 20
-                    color: model.mcolor
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            colorDialog.playerIndex=index;
-                            colorDialog.open();
-                        }
+                ColorDialog {
+                    id: colorDialog
+
+                    property int playerIndex: 0
+                    title: "Please choose a color"
+                    onAccepted: {
+                        console.log("You chose: " + colorDialog.color);
+                        let c = colorDialog.color;
+                        model.mcolor = c.toString();
                     }
-
-                    ColorDialog {
-                        id: colorDialog
-
-                        property int playerIndex: 0
-                        title: "Please choose a color"
-                        onAccepted: {
-                            console.log("You chose: " + colorDialog.color);
-                            let c = colorDialog.color;
-                            model.mcolor = c.toString();
-                        }
-                    }
-
                 }
+
+            }
         }
     }
 

@@ -25,9 +25,15 @@ Rectangle {
                     y: playerRect.height/2 - height/2
                     width: 30
                     height: width
-                    radius: width/2
+                    //radius: width/2
                     color: "black"
                     visible: index===root.playerTurn
+
+                    Image {
+                        id: name
+                        source: "qrc:/images/icons/rightarrow.jpg"
+                        anchors.fill: parent
+                    }
                 }
 
                 Row {

@@ -27,5 +27,7 @@
         <file>ScoreBoard.qml</file>
         <file>MenuBarr.qml</file>
         <file>PlayersDialog.qml</file>
+        <file>images/icons/delete.jpg</file>
+        <file>images/icons/rightarrow.jpg</file>
     </qresource>
 </RCC>
