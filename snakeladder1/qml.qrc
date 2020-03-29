@@ -37,5 +37,6 @@
         <file>images/players/sanu2.png</file>
         <file>images/players/sanu3.png</file>
         <file>sounds/ladder.wav</file>
+        <file>images/svg/playbutton.svg</file>
     </qresource>
 </RCC>

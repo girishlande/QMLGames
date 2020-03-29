@@ -72,10 +72,10 @@ Rectangle {
         }
     }
 
-    SoundEffect {
-        id: snakeBite
-        source: "qrc:/sounds/snakebite.wav"
-    }
+//    SoundEffect {
+//        id: snakeBite
+//        source: "qrc:/sounds/snakebite.wav"
+//    }
 
     SoundEffect {
         id: ladderSound

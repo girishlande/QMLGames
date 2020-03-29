@@ -5,43 +5,45 @@ Rectangle {
 
     property ListModel players
     property int playerTurn: 0
+    property int entryHeight: 60
+    property int entryWidth: 300
 
     color: "white"
-    width: 300
-    height: players.count * 50
+    width: root.entryWidth
+    height: players.count * entryHeight
     radius: 10
 
     Column {
         anchors.fill: parent
+        spacing: 5
         Repeater {
             model: players
             delegate: Rectangle {
                 id: playerRect
-                width: root.width
-                height: 50
+                width: root.entryWidth
+                height: root.entryHeight
                 color: model.mcolor
-                Rectangle {
-                    x: 10
-                    y: playerRect.height/2 - height/2
-                    width: 30
-                    height: width
-                    //radius: width/2
-                    color: "black"
-                    visible: index===root.playerTurn
-
-                    Image {
-                        id: name
-                        source: "qrc:/images/icons/rightarrow.jpg"
-                        anchors.fill: parent
-                    }
-                }
+                radius: 5
 
                 Row {
-                    width: parent.width-20
                     spacing: 10
-                    anchors.verticalCenter: parent.verticalCenter
+                    Image {
+                        id: name
+                        source: "qrc:/images/svg/playbutton.svg"
+                        width: root.entryHeight/2
+                        height: root.entryHeight/2
+                        opacity: index === root.playerTurn ? 1 : 0
+                        y: entryHeight/4
+                    }
+                    Image {
+                        id: profilePhoto
+                        source: model.photo
+                        width: root.entryHeight
+                        height: root.entryHeight
+                        fillMode: Image.Stretch
+                    }
                     Text {
-                        text: "       " + model.name
+                        text: model.name
                         font.pointSize: 20
                     }
                 }

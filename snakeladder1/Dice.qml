@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtMultimedia 5.12
+import QtQuick 2.12
 
 Item {
     id:root
@@ -44,15 +45,23 @@ Item {
         }
     }
     MouseArea {
+        focus: true
         anchors.fill: parent
         onClicked: {
             root.startRolling();
         }
+        Keys.onDigit1Pressed: root.outcome(1);
+        Keys.onDigit2Pressed: root.outcome(2);
+        Keys.onDigit3Pressed: root.outcome(3);
+        Keys.onDigit4Pressed: root.outcome(4);
+        Keys.onDigit5Pressed: root.outcome(5);
+        Keys.onDigit6Pressed: root.outcome(6);
     }
 
     SoundEffect {
         id: diceSound
         source: "qrc:/sounds/dice.wav"
     }
+
 }
 
