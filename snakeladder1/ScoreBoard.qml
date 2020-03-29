@@ -6,7 +6,7 @@ Rectangle {
     property ListModel players
     property int playerTurn: 0
     property int entryHeight: 60
-    property int entryWidth: 300
+    property int entryWidth: 350
 
     color: "white"
     width: root.entryWidth
@@ -45,6 +45,7 @@ Rectangle {
                     Text {
                         text: model.name
                         font.pointSize: 20
+                        y: parent.height/2 - height/2
                     }
                 }
             }

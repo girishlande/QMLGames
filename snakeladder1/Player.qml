@@ -88,7 +88,6 @@ Rectangle {
         property: "pos"
         from: 1
         to: 100
-        duration: 20000
         easing.type: Easing.Linear
 
         onStopped: {
@@ -98,9 +97,48 @@ Rectangle {
                 root.pos = newPos;
             } else {
                 newPos = ladders.checkLadder(root.pos);
-                root.pos = newPos;
+                if (newPos!==root.pos) {
+                    root.startLadderAnimation(root.pos,newPos);
+                    root.pos = newPos;
+                }
             }
             root.positionUpdated();
         }
     }
+
+    function startLadderAnimation(oldPos,newPos) {
+        let oldX = mapper.getX(oldPos);
+        let newX = mapper.getX(newPos);
+        let oldY = mapper.getY(oldPos);
+        let newY = mapper.getY(newPos);
+        ladderAnimationX.from = oldX;
+        ladderAnimationX.to = newX;
+        ladderAnimationY.from = oldY;
+        ladderAnimationY.to = newY;
+
+        ladderAnimationX.duration=2000;
+        ladderAnimationY.duration=2000;
+        ladderAnimationX.start();
+        ladderAnimationY.start();
+    }
+
+    NumberAnimation {
+        id: ladderAnimationX
+        target: root
+        property: "x"
+        easing.type: Easing.Linear
+        onStopped: {
+            root.positionUpdated();
+        }
+    }
+    NumberAnimation {
+        id: ladderAnimationY
+        target: root
+        property: "y"
+        easing.type: Easing.Linear
+        onStopped: {
+            root.positionUpdated();
+        }
+    }
+
 }

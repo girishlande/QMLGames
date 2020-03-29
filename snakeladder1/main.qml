@@ -37,7 +37,7 @@ ApplicationWindow {
         players: playerModel
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.margins: 600
+        anchors.margins: 500
     }
 
     Dice {
