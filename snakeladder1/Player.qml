@@ -1,10 +1,12 @@
 import QtQuick 2.0
+import QtMultimedia 5.12
 
 Rectangle {
     id:root
 
     property int pos: 1
     property alias col: innerCircle.color
+    property alias playerphoto: playerPic.source
 
     signal positionUpdated();
 
@@ -42,7 +44,15 @@ Rectangle {
     onPosChanged: {
         root.x = mapper.getX(pos);
         root.y = mapper.getY(pos);
+        clickSound.play();
     }
+
+    SoundEffect {
+        id: clickSound
+        source: "qrc:/sounds/bipclick.wav"
+    }
+
+
 
     Rectangle {
         id:innerCircle
@@ -52,6 +62,24 @@ Rectangle {
         width: 80
         height: 80
         radius: 40
+        clip: true
+
+        Image {
+            id: playerPic
+            width: parent.width
+            height: parent.height
+            fillMode: Image.Stretch
+        }
+    }
+
+    SoundEffect {
+        id: snakeBite
+        source: "qrc:/sounds/snakebite.wav"
+    }
+
+    SoundEffect {
+        id: ladderSound
+        source: "qrc:/sounds/ladder.wav"
     }
 
     NumberAnimation {
@@ -65,7 +93,8 @@ Rectangle {
 
         onStopped: {
             let newPos = snakes.checkSnakeBite(root.pos);
-            if (newPos!==root.pos) {
+            if (newPos!==root.pos)
+            {
                 root.pos = newPos;
             } else {
                 newPos = ladders.checkLadder(root.pos);

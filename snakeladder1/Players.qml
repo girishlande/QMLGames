@@ -20,6 +20,7 @@ Item {
         delegate: Player {
             col: mcolor
             pos: mposition
+            playerphoto: photo
 
             onPositionUpdated: {
                 root.positionUpdated();

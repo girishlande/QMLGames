@@ -29,5 +29,13 @@
         <file>PlayersDialog.qml</file>
         <file>images/icons/delete.jpg</file>
         <file>images/icons/rightarrow.jpg</file>
+        <file>sounds/bipclick.wav</file>
+        <file>sounds/dice.wav</file>
+        <file>sounds/snakebite.wav</file>
+        <file>images/players/dada1.png</file>
+        <file>images/players/sanu1.png</file>
+        <file>images/players/sanu2.png</file>
+        <file>images/players/sanu3.png</file>
+        <file>sounds/ladder.wav</file>
     </qresource>
 </RCC>

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtMultimedia 5.12
 
 Item {
     id:root
@@ -11,6 +12,7 @@ Item {
     function startRolling() {
         animatedImage.visible = true;
         diceTimer.start();
+        diceSound.play();
     }
 
     Image {
@@ -34,6 +36,7 @@ Item {
         id: diceTimer
         interval: 1000; running: false;
         onTriggered: {
+            diceSound.stop();
             diceImage.imgIndex = Math.ceil((Math.random() * 100))%6 + 1;
             diceTimer.running = false;
             animatedImage.visible = false;
@@ -45,6 +48,11 @@ Item {
         onClicked: {
             root.startRolling();
         }
+    }
+
+    SoundEffect {
+        id: diceSound
+        source: "qrc:/sounds/dice.wav"
     }
 }
 
