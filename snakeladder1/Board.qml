@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id:background
     anchors.fill: parent
-
+    property bool buttonPressed: false
     Row {
         anchors.fill: parent
         spacing: 0
@@ -18,6 +18,24 @@ Rectangle {
                 id:boardImg
                 source: "qrc:/images/board.jpg"
                 opacity: 0.8
+            }
+            MouseArea {
+                anchors.fill: parent
+                onPressed: {
+                    background.buttonPressed=true;
+                }
+                onReleased: {
+                    background.buttonPressed=false;
+                }
+
+                onMouseXChanged: {
+                    if (background.buttonPressed)
+                    console.log(mouseX+","+mouseY);
+                }
+                onMouseYChanged: {
+                    if(background.buttonPressed)
+                    console.log(mouseX+","+mouseY);
+                }
             }
         }
         Rectangle {

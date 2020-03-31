@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <qqmlcontext.h>
 #include <mapper.h>
+#include <filereader.h>
 
 int main(int argc, char *argv[])
 {
@@ -10,8 +11,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     Mapper mapper;
+    FileReader reader;
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("fileReader",&reader);
     engine.rootContext()->setContextProperty("mapper",&mapper);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

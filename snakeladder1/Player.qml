@@ -7,16 +7,15 @@ Rectangle {
     property int pos: 1
     property alias col: innerCircle.color
     property alias playerphoto: playerPic.source
+    property int ballRadius: 60
+    property int count: 0
+    property int delayCount: 10
+    property int inc: 40
+    property int snakeIndex: 8
+    property int snakeIt: 0
 
     signal positionUpdated();
 
-    Snakes {
-        id:snakes
-    }
-
-    Ladderss {
-        id: ladders
-    }
 
     function setPosition(new_position) {
         let old_pos = root.pos;
@@ -47,12 +46,18 @@ Rectangle {
         clickSound.play();
     }
 
+    Snakes {
+        id:snakes
+    }
+
+    Ladderss {
+        id: ladders
+    }
+
     SoundEffect {
         id: clickSound
         source: "qrc:/sounds/bipclick.wav"
     }
-
-
 
     Rectangle {
         id:innerCircle
@@ -64,22 +69,21 @@ Rectangle {
         radius: 40
         clip: true
 
-        Image {
+        ProfilePicture {
             id: playerPic
             width: parent.width
             height: parent.height
-            fillMode: Image.Stretch
         }
     }
 
-//    SoundEffect {
-//        id: snakeBite
-//        source: "qrc:/sounds/snakebite.wav"
-//    }
+    SoundEffect {
+        id: snakeBite
+        source: "qrc:/sounds/slurp.wav"
+    }
 
     SoundEffect {
         id: ladderSound
-        source: "qrc:/sounds/ladder.wav"
+        source: "qrc:/sounds/airplane1.wav"
     }
 
     NumberAnimation {
@@ -94,10 +98,13 @@ Rectangle {
             let newPos = snakes.checkSnakeBite(root.pos);
             if (newPos!==root.pos)
             {
+                snakeBite.play();
+                testSnakeIndex(root.pos);
                 root.pos = newPos;
             } else {
                 newPos = ladders.checkLadder(root.pos);
                 if (newPos!==root.pos) {
+                    ladderSound.play();
                     root.startLadderAnimation(root.pos,newPos);
                     root.pos = newPos;
                 }
@@ -122,6 +129,12 @@ Rectangle {
         ladderAnimationY.start();
     }
 
+    function testSnakeIndex(index) {
+        fileReader.readFile(index);
+        root.count=0;
+        mtimer.start();
+    }
+
     NumberAnimation {
         id: ladderAnimationX
         target: root
@@ -131,6 +144,7 @@ Rectangle {
             root.positionUpdated();
         }
     }
+
     NumberAnimation {
         id: ladderAnimationY
         target: root
@@ -138,6 +152,43 @@ Rectangle {
         easing.type: Easing.Linear
         onStopped: {
             root.positionUpdated();
+        }
+    }
+
+    NumberAnimation {
+        id: xmovement
+        target: root
+        property: "x"
+        duration: root.delayCount
+        easing.type: Easing.Linear
+    }
+
+    NumberAnimation {
+        id: ymovement
+        target: root
+        property: "y"
+        duration: root.delayCount
+        easing.type: Easing.Linear
+    }
+
+    Timer {
+        id: mtimer
+        running: false
+        interval: root.delayCount
+        repeat: true
+        onTriggered: {
+            if (count < fileReader.getPoints()) {
+
+                xmovement.from = root.x
+                xmovement.to = fileReader.getX(count++) - root.width/2;
+                ymovement.from = root.y
+                ymovement.to = fileReader.getY(count++) - root.height/2;
+                count += root.inc;
+                xmovement.start();
+                ymovement.start();
+            } else {
+                mtimer.stop();
+            }
         }
     }
 
