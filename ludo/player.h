@@ -15,7 +15,7 @@ class Player : public QObject
 
 public:
     explicit Player(QObject *parent = nullptr);
-    Player(int globalStartIndex,const QString& col);
+    Player(const int globalStartIndex,const QString& col);
 
     void advancePiece(int pieceIndex, int value);
     int globalIndex();
@@ -25,6 +25,9 @@ public:
     void setGlobalIndex(const int index);
     void setCol(const QColor col);
     void setName(const QString& str);
+    int numPieces();
+
+    QVector<Piece*>& getPieces();
 
 signals:
    void globalIndexChanged();
@@ -34,6 +37,7 @@ signals:
 public slots:
 
 private:
+    QVector<Piece*> m_pieces;
 
     int m_globalIndex;
     QColor m_color;

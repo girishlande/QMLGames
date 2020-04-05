@@ -5,6 +5,7 @@
 #include <QVector>
 #include <player.h>
 
+class PieceModel;
 class PlayersClub : public QObject
 {
     Q_OBJECT
@@ -12,6 +13,8 @@ public:
     explicit PlayersClub(QObject *parent = nullptr);
 
     Q_INVOKABLE void advanceCurrentPlayer(int value);
+
+    void getPlayerPieces(PieceModel& model);
 
     void nextPlayer();
     int currentPlayer();

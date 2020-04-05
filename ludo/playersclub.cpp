@@ -1,4 +1,5 @@
 #include "playersclub.h"
+#include "piecemodel.h"
 
 PlayersClub::PlayersClub(QObject *parent) : QObject(parent)
 {
@@ -16,6 +17,20 @@ PlayersClub::PlayersClub(QObject *parent) : QObject(parent)
 void PlayersClub::advanceCurrentPlayer(int value)
 {
     m_players[m_playerTurn]->advancePiece(0,value);
+}
+
+void PlayersClub::getPlayerPieces(PieceModel &model)
+{
+    // Iterate on all players and get their pieces.
+    // Add references of these pieces in input model
+    for(int i=0;i<m_players.size();i++) {
+        Player* current = m_players[i];
+        QVector<Piece*> pieces = current->getPieces();
+        for(int j=0;j<pieces.size();j++) {
+            Piece* piece = pieces[j];
+            model.appendPiece(piece);
+        }
+    }
 }
 
 void PlayersClub::nextPlayer()

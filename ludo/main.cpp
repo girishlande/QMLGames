@@ -5,6 +5,7 @@
 #include "playersclub.h"
 #include "player.h"
 #include "piece.h"
+#include "piecemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    PieceModel pieceModel;
     PlayersClub club;
+    club.getPlayerPieces(pieceModel);
     Mapper mapper;
 
     qmlRegisterType<Player>("Player",1,0,"Player");
@@ -21,6 +24,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("mapper",&mapper);
     engine.rootContext()->setContextProperty("club",&club);
+    engine.rootContext()->setContextProperty("pieceModel",&pieceModel);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

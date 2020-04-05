@@ -9,7 +9,10 @@ Player::Player(int globalStartIndex, const QString &col)
     :m_globalIndex(globalStartIndex),
       m_color(col)
 {
-
+    m_pieces.push_back(new Piece(this));
+    m_pieces.push_back(new Piece(this));
+    m_pieces.push_back(new Piece(this));
+    m_pieces.push_back(new Piece(this));
 }
 
 void Player::advancePiece(int pieceIndex, int value)
@@ -53,4 +56,14 @@ void Player::setName(const QString &str)
         m_name =str;
         emit nameChanged();
     }
+}
+
+int Player::numPieces()
+{
+    return m_pieces.size();
+}
+
+QVector<Piece *> &Player::getPieces()
+{
+    return m_pieces;
 }

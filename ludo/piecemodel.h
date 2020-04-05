@@ -14,7 +14,9 @@ public:
         IndexRole=Qt::UserRole+1,
         ColorRole,
         NameRole,
-        ReachedRole
+        ReachedRole,
+        XposRole,
+        YposRole
     };
 
     explicit PieceModel(QObject *parent = nullptr);
@@ -31,6 +33,8 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     virtual QHash<int,QByteArray> roleNames() const override;
+
+    void appendPiece(Piece* piece);
 
 private:
     QVector<Piece*> m_pieces;

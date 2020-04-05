@@ -3,36 +3,32 @@
 
 Piece::Piece(QObject *parent) : QObject(parent)
 {
-
-}
-
-Piece::Piece(int name, int index)
-    :m_localIndex(index),
-      m_name(name),
-      m_reached(false)
-{
-
+    m_player = dynamic_cast<Player*>(parent);
+    m_color = m_player->col();
+    m_name = m_player->numPieces();
+    m_reached = false;
+    m_index = -1;
 }
 
 int Piece::index()
 {
-    return m_localIndex;
+    return m_index;
 }
 
 void Piece::setIndex(int index)
 {
-    if(m_localIndex!=index) {
-        m_localIndex=index;
+    if(m_index!=index) {
+        m_index=index;
         emit indexChanged();
     }
 }
 
-QString Piece::color()
+QColor Piece::color()
 {
     return m_color;
 }
 
-void Piece::setColor(const QString color)
+void Piece::setColor(const QColor color)
 {
     if (m_color!=color) {
         m_color = color;
@@ -64,4 +60,24 @@ void Piece::setReached(bool flag)
         m_reached = flag;
         emit reachedChanged();
     }
+}
+
+int Piece::xpos()
+{
+
+}
+
+void Piece::setXpos(int pos)
+{
+
+}
+
+int Piece::ypos()
+{
+
+}
+
+void Piece::setYpos(int pos)
+{
+
 }

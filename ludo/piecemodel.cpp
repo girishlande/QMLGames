@@ -3,10 +3,6 @@
 PieceModel::PieceModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    m_pieces.push_back(new Piece(0,-1));
-    m_pieces.push_back(new Piece(1,-1));
-    m_pieces.push_back(new Piece(2,-1));
-    m_pieces.push_back(new Piece(3,-1));
 }
 
 int PieceModel::rowCount(const QModelIndex &parent) const
@@ -30,6 +26,8 @@ QVariant PieceModel::data(const QModelIndex &index, int role) const
     case ColorRole: return QVariant(piece->color());
     case NameRole: return QVariant(piece->name());
     case ReachedRole: return QVariant(piece->reached());
+    case XposRole: return QVariant(piece->xpos());
+
     }
     // FIXME: Implement me!
     return QVariant();
@@ -63,7 +61,14 @@ QHash<int, QByteArray> PieceModel::roleNames() const
     names[ColorRole] = "col";
     names[NameRole] = "name";
     names[ReachedRole] = "reached";
+    names[XposRole]="xpos";
+    names[YposRole]="ypos";
     return names;
+}
+
+void PieceModel::appendPiece(Piece *piece)
+{
+    m_pieces.push_back(piece);
 }
 
 
