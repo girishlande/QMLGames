@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class Player;
 class Piece : public QObject
 {
     Q_OBJECT
@@ -12,7 +13,7 @@ class Piece : public QObject
     Q_PROPERTY(bool reached READ reached WRITE setReached NOTIFY reachedChanged)
 public:
     explicit Piece(QObject *parent = nullptr);
-    Piece(int name,int color,QString col);
+    Piece(int name,int color);
 
     int index();
     void setIndex(int index);
@@ -40,6 +41,7 @@ private:
     QString m_color;
     int m_name;
     bool m_reached;
+    Player* m_parent;
 };
 
 #endif // PIECE_H

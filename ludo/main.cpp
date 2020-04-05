@@ -3,6 +3,8 @@
 #include <qqmlcontext.h>
 #include "mapper.h"
 #include "playersclub.h"
+#include "player.h"
+#include "piece.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +14,9 @@ int main(int argc, char *argv[])
 
     PlayersClub club;
     Mapper mapper;
+
+    qmlRegisterType<Player>("Player",1,0,"Player");
+    qmlRegisterType<Piece>("Piece",1,0,"Piece");
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("mapper",&mapper);

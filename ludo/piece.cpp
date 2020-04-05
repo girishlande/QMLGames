@@ -1,13 +1,13 @@
 #include "piece.h"
+#include "player.h"
 
 Piece::Piece(QObject *parent) : QObject(parent)
 {
 
 }
 
-Piece::Piece(int name, int index, QString col)
+Piece::Piece(int name, int index)
     :m_localIndex(index),
-      m_color(col),
       m_name(name),
       m_reached(false)
 {

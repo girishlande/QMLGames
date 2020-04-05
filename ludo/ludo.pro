@@ -16,6 +16,7 @@ SOURCES += \
         main.cpp \
         mapper.cpp \
         piece.cpp \
+        piecemodel.cpp \
         player.cpp \
         playersclub.cpp
 
@@ -35,5 +36,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     mapper.h \
     piece.h \
+    piecemodel.h \
     player.h \
     playersclub.h

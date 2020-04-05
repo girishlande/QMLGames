@@ -6,18 +6,51 @@ Player::Player(QObject *parent) : QObject(parent)
 }
 
 Player::Player(int globalStartIndex, const QString &col)
-    :m_startIndex(globalStartIndex),
+    :m_globalIndex(globalStartIndex),
       m_color(col)
 {
-    m_pieces.push_back(new Piece(0,-1,col));
-    m_pieces.push_back(new Piece(1,-1,col));
-    m_pieces.push_back(new Piece(2,-1,col));
-    m_pieces.push_back(new Piece(3,-1,col));
+
 }
 
 void Player::advancePiece(int pieceIndex, int value)
 {
-    Piece* selected = m_pieces[pieceIndex];
-    int index = selected->index();
-    selected->setIndex(index+value);
+}
+
+int Player::globalIndex()
+{
+ return m_globalIndex;
+}
+
+QColor Player::col()
+{
+    return m_color;
+}
+
+QString Player::name()
+{
+    return m_name;
+}
+
+void Player::setGlobalIndex(const int index)
+{
+    if(m_globalIndex!=index) {
+        m_globalIndex = index;
+        emit globalIndexChanged();
+    }
+}
+
+void Player::setCol(const QColor col)
+{
+    if (m_color!=col) {
+        m_color = col;
+        emit colChanged();
+    }
+}
+
+void Player::setName(const QString &str)
+{
+    if(m_name!=str) {
+        m_name =str;
+        emit nameChanged();
+    }
 }

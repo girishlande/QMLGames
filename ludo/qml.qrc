@@ -7,5 +7,6 @@
         <file>Tracer.qml</file>
         <file>Dice.qml</file>
         <file>PieceUI.qml</file>
+        <file>PlayerUI.qml</file>
     </qresource>
 </RCC>
