@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>resources/images/ludo.png</file>
+        <file>BackgroundGrid.qml</file>
+        <file>Cells.qml</file>
+        <file>Tracer.qml</file>
+        <file>Dice.qml</file>
+        <file>PieceUI.qml</file>
+    </qresource>
+</RCC>
