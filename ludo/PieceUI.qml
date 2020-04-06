@@ -6,9 +6,13 @@ Rectangle {
     property int innerSize: size/2
     property alias innerColor: innerRect.color
     property int offset: 10
+    property alias innerText: name.text
     width: root.size
     height: root.size
     color: "transparent"
+
+    signal clicked();
+
     Rectangle {
         anchors.centerIn: parent
         width: root.size - root.offset
@@ -21,6 +25,17 @@ Rectangle {
             width: root.innerSize
             height: root.innerSize
             radius: root.innerSize
+            Text {
+                id: name
+                text: qsTr("T")
+                anchors.centerIn: parent
+            }
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                root.clicked();
+            }
         }
     }
 }

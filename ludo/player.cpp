@@ -5,9 +5,11 @@ Player::Player(QObject *parent) : QObject(parent)
 
 }
 
-Player::Player(int globalStartIndex, const QString &col)
-    :m_globalIndex(globalStartIndex),
-      m_color(col)
+Player::Player(const int baseIndex,const int baseInnerIndex, const QString &col, Mapper* mapper)
+    :m_baseIndex(baseIndex),
+      m_baseInnerIndex(baseInnerIndex),
+      m_color(col),
+      m_mapper(mapper)
 {
     m_pieces.push_back(new Piece(this));
     m_pieces.push_back(new Piece(this));
@@ -21,7 +23,7 @@ void Player::advancePiece(int pieceIndex, int value)
 
 int Player::globalIndex()
 {
- return m_globalIndex;
+ return m_baseIndex;
 }
 
 QColor Player::col()
@@ -36,8 +38,8 @@ QString Player::name()
 
 void Player::setGlobalIndex(const int index)
 {
-    if(m_globalIndex!=index) {
-        m_globalIndex = index;
+    if(m_baseIndex!=index) {
+        m_baseIndex = index;
         emit globalIndexChanged();
     }
 }
@@ -66,4 +68,17 @@ int Player::numPieces()
 QVector<Piece *> &Player::getPieces()
 {
     return m_pieces;
+}
+
+int Player::localToGlobalIndex(int localIndex)
+{
+    int globIndex = (m_baseIndex + localIndex)%52;
+    if (localIndex>50) {
+        globIndex = m_baseInnerIndex + (localIndex-51);
+    }
+}
+
+Mapper *Player::mapper()
+{
+    return m_mapper;
 }

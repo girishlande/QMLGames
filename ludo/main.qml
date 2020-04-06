@@ -17,8 +17,11 @@ Window {
     }
 
     Dice {
+        id: dice
+        property int diceValue: 0
         onEmitValue: {
             console.log("User rolled Cube:" + value)
+            dice.diceValue = value;
         }
     }
 
@@ -47,5 +50,19 @@ Window {
         col:"yellow"
     }
 
+    Repeater {
+        model: pieceModel
+        delegate: PieceUI {
+            innerColor: model.col
+            x: model.xpos
+            y: model.ypos
+            innerText: "" + model.name
+
+            onClicked: {
+                console.log("player clicked");
+                pieceModel.advancePiece(index,dice.diceValue);
+            }
+        }
+    }
 
 }

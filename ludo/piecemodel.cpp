@@ -27,7 +27,7 @@ QVariant PieceModel::data(const QModelIndex &index, int role) const
     case NameRole: return QVariant(piece->name());
     case ReachedRole: return QVariant(piece->reached());
     case XposRole: return QVariant(piece->xpos());
-
+    case YposRole: return QVariant(piece->ypos());
     }
     // FIXME: Implement me!
     return QVariant();
@@ -41,6 +41,8 @@ bool PieceModel::setData(const QModelIndex &index, const QVariant &value, int ro
     case ColorRole: piece->setColor(value.toString()); break;
     case NameRole: piece->setName(value.toInt());break;
     case ReachedRole: piece->setReached(value.toBool()); break;
+    case XposRole: piece->setXpos(value.toInt()); break;
+    case YposRole: piece->setYpos(value.toInt()); break;
     }
     emit dataChanged(index, index, QVector<int>() << role);
     return true;
@@ -69,6 +71,11 @@ QHash<int, QByteArray> PieceModel::roleNames() const
 void PieceModel::appendPiece(Piece *piece)
 {
     m_pieces.push_back(piece);
+}
+
+void PieceModel::advancePiece(int index, int value)
+{
+    m_pieces[index]->advancePosition(value);
 }
 
 

@@ -35,11 +35,15 @@ public:
     int ypos();
     void setYpos(int pos);
 
+    void advancePosition(int value);
+
 signals:
     void indexChanged();
     void colorChanged();
     void nameChanged();
     void reachedChanged();
+    void xposChanged();
+    void yposChanged();
 
 public slots:
 
@@ -49,6 +53,8 @@ private:
     int m_name;
     bool m_reached;
     Player* m_player;
+    int m_xpos;
+    int m_ypos;
 };
 
 #endif // PIECE_H

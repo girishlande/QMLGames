@@ -36,6 +36,8 @@ public:
 
     void appendPiece(Piece* piece);
 
+    Q_INVOKABLE void advancePiece(int index,int value);
+
 private:
     QVector<Piece*> m_pieces;
 };

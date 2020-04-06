@@ -5,12 +5,13 @@
 #include <QVector>
 #include <player.h>
 
+class Mapper;
 class PieceModel;
 class PlayersClub : public QObject
 {
     Q_OBJECT
 public:
-    explicit PlayersClub(QObject *parent = nullptr);
+    explicit PlayersClub(Mapper* mapper, QObject *parent = nullptr);
 
     Q_INVOKABLE void advanceCurrentPlayer(int value);
 
@@ -26,6 +27,7 @@ public slots:
 private:
     QVector<Player*> m_players;
     int m_playerTurn;
+    Mapper* m_mapper;
 };
 
 #endif // PLAYERSCLUB_H

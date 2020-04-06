@@ -5,6 +5,7 @@
 #include <piece.h>
 #include <qvector.h>
 #include <qcolor.h>
+#include <mapper.h>
 
 class Player : public QObject
 {
@@ -15,7 +16,7 @@ class Player : public QObject
 
 public:
     explicit Player(QObject *parent = nullptr);
-    Player(const int globalStartIndex,const QString& col);
+    Player(const int baseIndex,const int baseInnerIndex, const QString& col, Mapper* mapper);
 
     void advancePiece(int pieceIndex, int value);
     int globalIndex();
@@ -29,6 +30,10 @@ public:
 
     QVector<Piece*>& getPieces();
 
+    int localToGlobalIndex(int localIndex);
+
+    Mapper *mapper();
+
 signals:
    void globalIndexChanged();
    void colChanged();
@@ -39,9 +44,11 @@ public slots:
 private:
     QVector<Piece*> m_pieces;
 
-    int m_globalIndex;
+    int m_baseIndex;
+    int m_baseInnerIndex;
     QColor m_color;
     QString m_name;
+    Mapper* m_mapper;
 };
 
 #endif // PLAYER_H

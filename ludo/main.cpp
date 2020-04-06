@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     PieceModel pieceModel;
-    PlayersClub club;
-    club.getPlayerPieces(pieceModel);
     Mapper mapper;
+    PlayersClub club(&mapper);
+    club.getPlayerPieces(pieceModel);
 
     qmlRegisterType<Player>("Player",1,0,"Player");
     qmlRegisterType<Piece>("Piece",1,0,"Piece");

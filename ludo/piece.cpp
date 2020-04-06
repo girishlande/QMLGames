@@ -7,7 +7,10 @@ Piece::Piece(QObject *parent) : QObject(parent)
     m_color = m_player->col();
     m_name = m_player->numPieces();
     m_reached = false;
-    m_index = -1;
+    m_index = 0;
+    int gIndex = m_player->localToGlobalIndex(m_index);
+    m_xpos = m_player->mapper()->getX(gIndex);
+    m_ypos = m_player->mapper()->getY(gIndex);
 }
 
 int Piece::index()
@@ -19,6 +22,11 @@ void Piece::setIndex(int index)
 {
     if(m_index!=index) {
         m_index=index;
+        int gIndex = m_player->localToGlobalIndex(index);
+        int xpos = m_player->mapper()->getX(gIndex);
+        int ypos = m_player->mapper()->getY(gIndex);
+        setXpos(xpos);
+        setYpos(ypos);
         emit indexChanged();
     }
 }
@@ -64,20 +72,31 @@ void Piece::setReached(bool flag)
 
 int Piece::xpos()
 {
-
+    return m_xpos;
 }
 
 void Piece::setXpos(int pos)
 {
-
+    if (m_xpos != pos) {
+        m_xpos = pos;
+        emit xposChanged();
+    }
 }
 
 int Piece::ypos()
 {
-
+    return m_ypos;
 }
 
 void Piece::setYpos(int pos)
 {
+    if (m_ypos != pos) {
+        m_ypos = pos;
+        emit yposChanged();
+    }
+}
 
+void Piece::advancePosition(int value)
+{
+    setIndex(index()+value);
 }
