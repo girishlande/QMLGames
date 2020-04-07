@@ -17,9 +17,6 @@ Player::Player(const int baseIndex,const int baseInnerIndex, const QString &col,
     m_pieces.push_back(new Piece(this));
 }
 
-void Player::advancePiece(int pieceIndex, int value)
-{
-}
 
 int Player::globalIndex()
 {
@@ -76,6 +73,7 @@ int Player::localToGlobalIndex(int localIndex)
     if (localIndex>50) {
         globIndex = m_baseInnerIndex + (localIndex-51);
     }
+    return globIndex;
 }
 
 Mapper *Player::mapper()

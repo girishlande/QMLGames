@@ -13,8 +13,6 @@ class PlayersClub : public QObject
 public:
     explicit PlayersClub(Mapper* mapper, QObject *parent = nullptr);
 
-    Q_INVOKABLE void advanceCurrentPlayer(int value);
-
     void getPlayerPieces(PieceModel& model);
 
     void nextPlayer();

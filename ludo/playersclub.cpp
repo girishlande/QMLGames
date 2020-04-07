@@ -18,10 +18,6 @@ PlayersClub::PlayersClub(Mapper* mapper, QObject *parent)
     m_players.push_back(new Player(40,67,col4,mapper));
 }
 
-void PlayersClub::advanceCurrentPlayer(int value)
-{
-    m_players[m_playerTurn]->advancePiece(0,value);
-}
 
 void PlayersClub::getPlayerPieces(PieceModel &model)
 {

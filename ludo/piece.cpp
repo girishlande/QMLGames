@@ -1,5 +1,6 @@
 #include "piece.h"
 #include "player.h"
+#include <qdebug.h>
 
 Piece::Piece(QObject *parent) : QObject(parent)
 {
@@ -20,6 +21,7 @@ int Piece::index()
 
 void Piece::setIndex(int index)
 {
+    qDebug() << "index changed:" << index;
     if(m_index!=index) {
         m_index=index;
         int gIndex = m_player->localToGlobalIndex(index);

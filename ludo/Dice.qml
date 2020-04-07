@@ -3,26 +3,23 @@ import QtQuick 2.0
 Rectangle {
     id:root
 
-    anchors.centerIn: parent
+    property int value: 0
 
     width: 200
     height: 200
     color: "transparent"
+    anchors.centerIn: parent
 
-    signal emitValue(var value);
-
-    property int currentValue: 0
     Text {
         anchors.centerIn: parent
         font.pointSize: 50
-        text: "" + root.currentValue
+        text: "" + root.value
     }
 
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            currentValue = Math.ceil(Math.random()*6);
-            root.emitValue(currentValue);
+            root.value = Math.ceil(Math.random()*6);
         }
     }
 }

@@ -35,7 +35,21 @@ QVariant PieceModel::data(const QModelIndex &index, int role) const
 
 bool PieceModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    bool change = false;
     Piece* piece = m_pieces.at(index.row());
+    switch (role) {
+    case IndexRole: change = piece->index()!=value.toInt(); break;
+    case ColorRole: change = piece->color()!=value.toString(); break;
+    case NameRole: change = piece->name()!= value.toInt(); break;
+    case ReachedRole: change = piece->reached()!=value.toBool(); break;
+    case XposRole: change = piece->xpos()!=value.toInt(); break;
+    case YposRole: change = piece->ypos()!=value.toInt(); break;
+    }
+
+    if(!change) {
+        return false;
+    }
+
     switch (role) {
     case IndexRole: piece->setIndex(value.toInt());break;
     case ColorRole: piece->setColor(value.toString()); break;
@@ -45,6 +59,10 @@ bool PieceModel::setData(const QModelIndex &index, const QVariant &value, int ro
     case YposRole: piece->setYpos(value.toInt()); break;
     }
     emit dataChanged(index, index, QVector<int>() << role);
+    if (role==IndexRole) {
+        emit dataChanged(index, index, QVector<int>() << role+4);
+        emit dataChanged(index, index, QVector<int>() << role+5);
+    }
     return true;
 }
 
@@ -59,7 +77,7 @@ Qt::ItemFlags PieceModel::flags(const QModelIndex &index) const
 QHash<int, QByteArray> PieceModel::roleNames() const
 {
     QHash<int,QByteArray> names;
-    names[IndexRole] = "index";
+    names[IndexRole] = "localindex";
     names[ColorRole] = "col";
     names[NameRole] = "name";
     names[ReachedRole] = "reached";

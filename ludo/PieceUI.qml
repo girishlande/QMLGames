@@ -2,11 +2,14 @@ import QtQuick 2.0
 
 Rectangle {
     id: root
+
     property int size: 50
     property int innerSize: size/2
     property alias innerColor: innerRect.color
     property int offset: 10
     property alias innerText: name.text
+    property alias active: pieceUiMouseArea.visible
+
     width: root.size
     height: root.size
     color: "transparent"
@@ -32,6 +35,7 @@ Rectangle {
             }
         }
         MouseArea {
+            id: pieceUiMouseArea
             anchors.fill: parent
             onClicked: {
                 root.clicked();

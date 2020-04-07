@@ -18,7 +18,6 @@ public:
     explicit Player(QObject *parent = nullptr);
     Player(const int baseIndex,const int baseInnerIndex, const QString& col, Mapper* mapper);
 
-    void advancePiece(int pieceIndex, int value);
     int globalIndex();
     QColor col();
     QString name();

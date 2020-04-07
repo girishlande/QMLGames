@@ -8,5 +8,6 @@
         <file>Dice.qml</file>
         <file>PieceUI.qml</file>
         <file>PlayerUI.qml</file>
+        <file>resources/images/chakra.png</file>
     </qresource>
 </RCC>
