@@ -71,11 +71,14 @@ Window {
             active: index>=root.playerTurn*4 && index<(root.playerTurn+1)*4 && !root.waitingForDice
             onClicked: {
                 console.log("player clicked");
-                moveTransition.target = model;
-                moveTransition.from = model.localindex;
-                moveTransition.to = model.localindex + dice.value;
-                moveTransition.duration = dice.value * 100;
-                moveTransition.start();
+                if (model.localindex + dice.value<=57) {
+                    moveTransition.target = model;
+                    moveTransition.from = model.localindex;
+                    moveTransition.to = model.localindex + dice.value;
+                    moveTransition.duration = dice.value * 100;
+                    moveTransition.start();
+                }
+
                 root.waitingForDice = true;
                 dice.forceActiveFocus();
             }
@@ -87,6 +90,6 @@ Window {
         id: moveTransition
         property: "localindex"
         running: false
-        easing.type: Easing.bezierCurve
+        easing.type: Easing.Linear
     }
 }
