@@ -6,26 +6,37 @@ Rectangle {
     x: parent.width - root.width
     y: 100
 
-    width: 50
-    height: 100
+    property bool active: true
+    function stop() {
+        root.active=false;
+    }
+
+    width: 10
+    height: 40
     color: "red"
 
+    Component.onCompleted: t1.start()
+    Timer {
+        id: t1
+        interval: Math.random()*5000
+        onTriggered: {
+            n1.start()
+        }
+    }
+
     NumberAnimation {
+        id: n1
         target: root
         property: "x"
-        duration: 2000
-        running: true
+        duration: 5000
         easing.type: Easing.Linear
-        from: Screen.width
-        to: -100
-        onLoopCountChanged: {
-            console.log("loop changed")
-        }
+        from: Screen.width - root.width
+        to: -root.width
 
         onStopped:  {
             console.log("animation stopped")
-            from= Screen.width + Math.random() * 4000
-            start();
+            if (root.active)
+            t1.start();
         }
     }
 }

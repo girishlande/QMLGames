@@ -38,21 +38,12 @@ Window {
     }
 
 
-    Button {
-        id: jumpButton
-        text: "Jump"
-        focus: true
-        onClicked: {
-            root.jump();
-        }
-    }
-
     Rectangle {
         id:player
         x:50
         y:root.height - road.height - height
-        width: 50
-        height: 100
+        width: 30
+        height: 50
         radius: 20
         color: "black"
     }
@@ -68,9 +59,13 @@ Window {
         root.jump();
     }
 
-    Obstacle {
-        id: o1
+    Repeater {
+        model: 10
+        delegate: Obstacle {
+            y:root.height - road.height - height
+        }
     }
+
 
     Component.onCompleted: {
 
