@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.0
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.12
 
 Window {
     id:root
@@ -43,6 +44,7 @@ Window {
     }
 
     function startGame() {
+        raceSound.play();
         if (gamePaused) {
             road1Animation.restart();
             car1Animation.restart();
@@ -73,6 +75,7 @@ Window {
         gamestarted = false;
         collisionTimer.running = false;
         gamePaused = true;
+        winnerDisplay.visible = false;
     }
 
     function pauseGame() {
@@ -264,6 +267,16 @@ Window {
         visible: false
     }
 
+    SoundEffect {
+        id: raceSound
+        source: "qrc:/sounds/s2.wav"
+        loops: 10
+    }
+    SoundEffect {
+        id: crashSound
+        source: "qrc:/sounds/s4.wav"
+        loops: 1
+    }
     NumberAnimation {
         id: road1Animation
         target: road1
@@ -274,6 +287,7 @@ Window {
         onStopped: {
             road1.y=root.height/2
             road1Animation.start();
+
         }
     }
 
@@ -363,6 +377,8 @@ Window {
                 }
                 gameover.visible = true;
                 winnerTimer.running = false;
+                raceSound.stop();
+                crashSound.play();
 
             }
         }
@@ -385,10 +401,11 @@ Window {
     }
     Timer {
         id:winnerTimer
-        interval: 5000; repeat: true; running: false
+        interval: 15000; repeat: true; running: false
 
         onTriggered: {
             winnerDisplay.visible = true;
+            raceSound.stop();
             root.pauseGame();
         }
     }

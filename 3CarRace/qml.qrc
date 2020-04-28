@@ -8,5 +8,11 @@
         <file>images/orangeCar.png</file>
         <file>images/gameover.jpeg</file>
         <file>MyButtom.qml</file>
+        <file>sounds/f1.wav</file>
+        <file>sounds/s2.wav</file>
+        <file>sounds/s3.wav</file>
+        <file>sounds/s4.wav</file>
+        <file>sounds/s5.wav</file>
+        <file>sounds/s6.wav</file>
     </qresource>
 </RCC>
